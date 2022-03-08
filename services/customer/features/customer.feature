@@ -30,7 +30,7 @@ Feature: Handle new Customer creation, Customer data update and Checkout validat
             | 1           | New York         | New York        | 1111 2222 3333 4444 | 03/25           | John Doe    | succeed | 200         |
             | 2           | Craiova          | Craiova         | 1112 2222 3333 4444 | 02/24           | John Smith  | succeed | 200         |
         Examples: Bad customer fields
-            | customer_id | shipping_address | billing_address | card_number         | card_expiration | card_holder | message                                   | status_code |
-            | 1           |                  |                 | 1111 2222 3333 4444 | 03/25           | John Doe    | missing shipping address, billing address | 422         |
-            | 2           | Craiova          | Craiova         | 1112 2222 333 4444  | 02/2            | John Smith  | invalid card number, card expiration      | 422         |
-            | 1a          | Craiova          |                 |                     |                 |             | invalid customer id                       | 422         |
+            | customer_id | shipping_address | billing_address | card_number         | card_expiration | card_holder | message                              | status_code |
+            | 3           |                  |                 | 1111 2222 3333 4444 | 03/25           | John Doe 2  | invalid card holder                  | 422         |
+            | 4           | Craiova          | Craiova         | 1112 2222 333 4444  | 02/2            | John Smith  | invalid card number, card expiration | 422         |
+            | 1a          | Craiova          |                 |                     |                 |             | invalid customer id                  | 422         |
