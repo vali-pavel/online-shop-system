@@ -1,4 +1,4 @@
-Feature: Handle new Customer creation and Customer data update
+Feature: Handle new Customer creation, Customer data update and Checkout validation
 
     Scenario Outline: The system can create a Customer
         Given a user id <user_id>
