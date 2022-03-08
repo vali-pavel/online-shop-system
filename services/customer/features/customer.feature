@@ -34,3 +34,16 @@ Feature: Handle new Customer creation, Customer data update and Checkout validat
             | 3           |                  |                 | 1111 2222 3333 4444 | 03/25           | John Doe 2  | invalid card holder                  | 422         |
             | 4           | Craiova          | Craiova         | 1112 2222 333 4444  | 02/2            | John Smith  | invalid card number, card expiration | 422         |
             | 1a          | Craiova          |                 |                     |                 |             | invalid customer id                  | 422         |
+
+    Scenario Outline: The system should validate the Checkout information of a Customer
+        Given a customer id <customer_id>
+        When a checkout is submitted
+        Then Customer fields validation <result>
+        Examples: Customer has all fields
+            | customer_id | result  |
+            | 1           | succeed |
+            | 2           | succeed |
+        Examples: Customer is missing fields
+            | customer_id | result |
+            | 3           | fails  |
+            | 4           | fails  |
