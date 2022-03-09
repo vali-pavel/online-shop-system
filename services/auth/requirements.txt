@@ -1,0 +1,4 @@
+PyJWT==2.3.0
+pytest==7.0.1
+pytest-bdd==5.0.0
+python-dotenv==0.19.2
