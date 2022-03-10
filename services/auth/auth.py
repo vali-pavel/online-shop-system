@@ -14,7 +14,7 @@ class Auth:
         user_id: int,
         role: int,
         secret_key: str,
-    ):
+    ) -> str:
         to_encode = {
             "sub": user_id,
             "role": role,
@@ -24,9 +24,10 @@ class Auth:
         return encoded_jwt
 
     @staticmethod
-    def decode_access_token(access_token: str):
+    def is_token_valid(access_token: str) -> bool:
         SECRET_KEY = os.environ["SECRET_KEY"]
         try:
-            return jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
-        except Exception as err:
-            return err
+            jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
+            return True
+        except:
+            return False
