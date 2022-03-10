@@ -8,9 +8,9 @@ Feature: Handle Auth operations
         Then the auth token is <auth_token>
 
         Examples: Good auth token is generated
-            | user_id | user_role | secret_key | auth_token  |
-            | 0       | 0         | secret123  | AUTH-TOKEN1 |
-            | 1       | 1         | secret123  | AUTH-TOKEN2 |
+            | user_id | user_role | secret_key          | auth_token  |
+            | 0       | 0         | Strong_Secret_Key1! | AUTH-TOKEN1 |
+            | 1       | 1         | Strong_Secret_Key1! | AUTH-TOKEN2 |
 
         Examples: Bad auth token is generated
             | user_id | user_role | secret_key     | auth_token      |
@@ -22,8 +22,8 @@ Feature: Handle Auth operations
         Then the decoded token is <decoded_token>
 
         Examples: Good auth token
-            | auth_token  | decoded_token |
-            | AUTH-TOKEN1 | DECODED-TOKEN |
+            | auth_token  | decoded_token  |
+            | AUTH-TOKEN1 | DECODED-TOKEN1 |
 
         Examples: Bad auth token
             | auth_token      | decoded_token     |
