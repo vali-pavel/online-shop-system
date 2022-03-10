@@ -1,7 +1,5 @@
 from pytest_bdd import given, when, then, scenario, parsers
 
-import jwt
-
 
 @scenario(
     "../features/auth.feature",
@@ -50,12 +48,12 @@ def auth_token(auth_token):
     assert isinstance(auth_token, str)
 
 
-@when("validating the auth token", target_fixture="decoded_token_result")
+@when("validating the auth token", target_fixture="token_validation")
 def validate_token(auth, auth_token, auth_tokens):
-    decoded_token = auth.decode_access_token(auth_tokens[auth_token])
-    return decoded_token
+    is_token_valid = auth.is_token_valid(auth_tokens[auth_token])
+    return is_token_valid
 
 
-@then(parsers.parse("the decoded token is {decoded_token}"))
-def decoded_token(decoded_auth_tokens, decoded_token, decoded_token_result):
-    assert type(decoded_auth_tokens[decoded_token]) == type(decoded_token_result)
+@then(parsers.parse("valid token {is_token_valid}"))
+def decoded_token(token_validation, is_token_valid):
+    assert str(token_validation) == is_token_valid

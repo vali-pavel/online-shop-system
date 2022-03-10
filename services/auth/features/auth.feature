@@ -19,12 +19,12 @@ Feature: Handle Auth operations
     Scenario Outline: The system can validate an authentication token
         Given an auth token <auth_token>
         When validating the auth token
-        Then the decoded token is <decoded_token>
+        Then valid token <is_token_valid>
 
         Examples: Good auth token
-            | auth_token  | decoded_token  |
-            | AUTH-TOKEN1 | DECODED-TOKEN1 |
+            | auth_token  | is_token_valid |
+            | AUTH-TOKEN1 | True           |
 
         Examples: Bad auth token
-            | auth_token      | decoded_token     |
-            | BAD-AUTH-TOKEN1 | DECODED-TOKEN-ERR |
+            | auth_token      | is_token_valid |
+            | BAD-AUTH-TOKEN1 | False          |

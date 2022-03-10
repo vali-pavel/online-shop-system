@@ -17,12 +17,3 @@ def auth_tokens() -> dict:
         "BAD-AUTH-TOKEN1": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMsInJvbGUiOjB9.VUl1SxmhKzgQOJJ76n499tfoXZuwbAxvidCLHf1D14E",
     }
     return auth_tokens
-
-
-@fixture
-def decoded_auth_tokens() -> dict:
-    decoded_auth_tokens = {
-        "DECODED-TOKEN1": {"sub": 0, "role": 0},
-        "DECODED-TOKEN-ERR": jwt.InvalidSignatureError("Signature verification failed"),
-    }
-    return decoded_auth_tokens
