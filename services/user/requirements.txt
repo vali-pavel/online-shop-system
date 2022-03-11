@@ -1,3 +1,5 @@
 mysql-connector-python
 sqlalchemy
 dotenv
+pydantic[email]
+requests
