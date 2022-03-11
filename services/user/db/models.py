@@ -1,13 +1,14 @@
-from sqlalchemy import Table, Column, Integer, String
-from db import meta
+from sqlalchemy import Column, Integer, String
 
-user = Table(
-    "user",
-    meta,
-    Column("user_id", Integer, autoincrement=True, primary_key=True),
-    Column("full_name", String(100), nullable=False),
-    Column("email", String(100), nullable=False),
-    Column("phone_number", Integer, nullable=False),
-    Column("user_role", Integer, nullable=False),
-    Column("password", String(150), nullable=False),
-)
+from .db import Base
+
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(Integer, autoincrement=True, primary_key=True)
+    full_name = Column(String, nullable=False)
+    email = Column(String, nullable=False)
+    phone_number = Column(Integer, nullable=False)
+    role_type = Column(Integer, nullable=False)
+    hashed_password = Column(String, nullable=False)
