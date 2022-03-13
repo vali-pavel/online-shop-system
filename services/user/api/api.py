@@ -1,13 +1,11 @@
 from sqlalchemy.orm import Session
-from fastapi import Depends, FastAPI, Response, Request, HTTPException
-
-import path_loader
+from fastapi import Depends, Response, HTTPException, APIRouter
 
 from db.db import SessionLocal
-from api import schemas, db_manager
+from . import schemas, db_manager
 from user import User
 
-app = FastAPI()
+router = APIRouter()
 
 
 def get_db():
@@ -18,7 +16,7 @@ def get_db():
         db.close()
 
 
-@app.post("/users/", response_model=schemas.UserCreate)
+@router.post("/users/", response_model=schemas.UserCreate)
 def create_user(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     user = User(db)
     created_user = user.createUser(user_in)
@@ -29,7 +27,7 @@ def create_user(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
     return Response(headers={"authorization": auth_token}, status_code=201)
 
 
-@app.get("/users/{user_id}", response_model=schemas.User)
+@router.get("/users/{user_id}", response_model=schemas.User)
 def read_user(user_id: int, db: Session = Depends(get_db)):
     db_user = db_manager.get_user(db, user_id=user_id)
     if db_user is None:
@@ -37,7 +35,7 @@ def read_user(user_id: int, db: Session = Depends(get_db)):
     return db_user
 
 
-@app.post("/users/login")
+@router.post("/users/login")
 def user_login(user_in: schemas.UserLogin, db: Session = Depends(get_db)):
     user = User(db)
     db_user = user.login(user_in)
@@ -45,9 +43,3 @@ def user_login(user_in: schemas.UserLogin, db: Session = Depends(get_db)):
         raise HTTPException(status_code=401, detail="Wrong email or password")
     auth_token = user.get_auth_token(db_user.id, db_user.role_type)
     return Response(headers={"authorization": auth_token}, status_code=200)
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="127.0.0.1", port=8001)
