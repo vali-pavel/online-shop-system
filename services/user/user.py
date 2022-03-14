@@ -2,7 +2,7 @@ from typing import Union
 from dataclasses import dataclass
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
-import os, requests, json
+import os, requests
 
 from api.schemas import User, UserLogin
 from api import db_manager
@@ -25,7 +25,7 @@ class User:
             return None
         return db_user
 
-    def createUser(self, user_in: User):
+    def create_user(self, user_in: User):
         existing_user = self._check_if_user_exists(user_in.email)
         if existing_user:
             return None

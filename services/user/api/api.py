@@ -17,9 +17,9 @@ def get_db():
 
 
 @router.post("/users/", response_model=schemas.UserCreate)
-def create_user(user_in: schemas.UserCreate, db: Session = Depends(get_db)):
+def create_user(new_user: schemas.UserCreate, db: Session = Depends(get_db)):
     user = User(db)
-    created_user = user.createUser(user_in)
+    created_user = user.create_user(new_user)
     if created_user is None:
         raise HTTPException(status_code=400, detail="Email already registered")
 
