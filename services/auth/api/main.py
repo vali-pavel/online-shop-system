@@ -3,7 +3,7 @@ from fastapi import FastAPI, Response, Request
 
 import path_loader
 from auth import Auth
-from model import LoginRequest
+from schemas import LoginRequest
 
 app = FastAPI()
 
