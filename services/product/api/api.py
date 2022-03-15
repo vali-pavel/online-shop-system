@@ -1,13 +1,9 @@
-from dataclasses import dataclass
-from unicodedata import category
 from sqlalchemy.orm import Session
-from fastapi import Depends, Response, APIRouter, HTTPException, status
-from fastapi_pagination import Page, add_pagination, paginate, Params
+from fastapi import Depends, APIRouter, HTTPException, status
+from fastapi_pagination import Page, paginate, Params
 from typing import Optional
 
 from db.db import SessionLocal
-from db import models
-
 from . import schemas, db_manager
 
 
