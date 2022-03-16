@@ -6,6 +6,7 @@ GO
 
 CREATE TABLE IF NOT EXISTS product (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     sku VARCHAR(50) NOT NULL,
     price FLOAT NOT NULL,
     color VARCHAR(50) NOT NULL,
@@ -13,7 +14,5 @@ CREATE TABLE IF NOT EXISTS product (
     min_delivery_days INT NOT NULL,
     max_delivery_days INT NOT NULL,
     vendor_name VARCHAR(200) NOT NULL,
-    category INT NOT NULL,
-    images JSON,
-    total_resized INT DEFAULT 0
+    category INT NOT NULL
 );
