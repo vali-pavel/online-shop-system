@@ -1,6 +1,10 @@
+# Static
+assets
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 .pytest_cache
 
 # Environments
 .env
+/env

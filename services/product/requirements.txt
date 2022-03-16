@@ -1,0 +1,9 @@
+pymysql
+fastapi
+sqlalchemy
+python-dotenv
+fastapi_pagination
+requests
+python-multipart
+python-magic
+Wand
