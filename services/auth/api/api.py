@@ -1,15 +1,14 @@
 from urllib.request import Request
-from fastapi import FastAPI, Response, Request
+from fastapi import APIRouter, Response, Request
 
-import path_loader
 from auth import Auth
-from schemas import LoginRequest
+from . import schemas
 
-app = FastAPI()
+router = APIRouter()
 
 
-@app.post("/auth/generate-token")
-def generate_access_token(request_data: LoginRequest):
+@router.post("/auth/generate-token")
+def generate_access_token(request_data: schemas.LoginRequest):
     auth = Auth()
     access_token = auth.create_access_token(
         request_data.user_id,
@@ -19,7 +18,7 @@ def generate_access_token(request_data: LoginRequest):
     return Response(access_token, 200)
 
 
-@app.post("/auth/validate-token")
+@router.post("/auth/validate-token")
 def validate_access_token(request: Request):
     auth_header = request.headers.get("authorization")
     auth = Auth()
@@ -28,9 +27,3 @@ def validate_access_token(request: Request):
         return Response(None, 204)
     else:
         return Response(None, 401)
-
-
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=8000)
