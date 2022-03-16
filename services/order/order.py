@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Union
 import requests
+
 import constants
 
 
