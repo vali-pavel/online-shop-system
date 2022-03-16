@@ -1,5 +1,6 @@
 mysql-connector-python
 sqlalchemy
-dotenv
+python-dotenv
 pydantic[email]
 requests
+passlib

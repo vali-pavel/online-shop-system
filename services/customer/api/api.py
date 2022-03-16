@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from fastapi import Depends, Response, APIRouter
+from fastapi import Depends, Response, APIRouter, HTTPException, status
 
 from db.db import SessionLocal
 from . import schemas, db_manager
@@ -28,7 +28,7 @@ def read_customer(customer_id: int, db: Session = Depends(get_db)):
     db_customer = db_manager.get_customer(db, customer_id)
 
     if not db_customer:
-        return Response("Customer not found", 404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
 
     return db_customer
 
@@ -38,13 +38,15 @@ def validate_customer(customer_id, db: Session = Depends(get_db)):
     db_customer = db_manager.get_customer(db, customer_id)
 
     if not db_customer:
-        return Response("Customer not found", 404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
 
     customer = Customer()
     checkout_validation = customer.validate_checkout(db_customer)
 
     if not checkout_validation:
-        return Response(None, 422)
+        raise HTTPException(
+            status.HTTP_422_UNPROCESSABLE_ENTITY, "Invalid customer fields"
+        )
 
     return Response(None, 200)
 
@@ -56,6 +58,6 @@ def update_customer(
     db_customer = db_manager.get_customer(db, customer_id)
 
     if not db_customer:
-        return Response("Customer not found", 404)
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
 
     return db_manager.update_customer(db, db_customer, updated_customer)
