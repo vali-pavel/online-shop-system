@@ -7,6 +7,7 @@ from fastapi import (
     UploadFile,
     File,
     Form,
+    Response,
 )
 from fastapi.responses import FileResponse
 from fastapi_pagination import Page, paginate, Params
@@ -77,3 +78,24 @@ def get_product_images(product_id: int):
     images = product.get_images(product_id)
 
     return [FileResponse(image.file_path, filename=image.file_name) for image in images]
+
+
+@router.get("/products/{product_id}/inventory", response_model=schemas.ProductInventory)
+def get_product_inventory(product_id: int, db: Session = Depends(get_db)):
+    db_response = db_manager.get_product(db, product_id)
+    if not db_response:
+        return HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+    return db_response
+
+
+@router.put("/products/{product_id}/inventory")
+def update_product_inventory(
+    product_id: int,
+    inventory: schemas.ProductInventory,
+    db: Session = Depends(get_db),
+):
+    db_product = db_manager.get_product(db, product_id)
+    if not db_product:
+        return HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+
+    return db_manager.update_product_inventory(db, db_product, inventory.inventory)
