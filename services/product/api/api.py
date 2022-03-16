@@ -1,10 +1,20 @@
 from sqlalchemy.orm import Session
-from fastapi import Depends, APIRouter, HTTPException, status
+from fastapi import (
+    Depends,
+    APIRouter,
+    HTTPException,
+    status,
+    UploadFile,
+    File,
+    Form,
+)
+from fastapi.responses import FileResponse
 from fastapi_pagination import Page, paginate, Params
-from typing import Optional
+from typing import List, Optional
 
 from db.db import SessionLocal
 from . import schemas, db_manager
+from product import Product
 
 
 router = APIRouter()
@@ -28,8 +38,16 @@ def create_product(new_product: schemas.ProductCreate, db: Session = Depends(get
 
 
 @router.post("/products/upload")
-def upload_image():
-    pass
+async def upload_image(
+    product_id: int = Form(...),
+    files: List[UploadFile] = File(...),
+):
+    product = Product()
+    for file in files:
+        content = await file.read()
+        is_image_file = product.validate_file_type(content)
+        if is_image_file:
+            product.resize_and_save_img(content, file.filename, product_id)
 
 
 @router.get("/products/{product_id}", response_model=schemas.ProductBase)
@@ -51,3 +69,11 @@ def get_products(
     db_products = db_manager.get_products(query_filters)
 
     return paginate(db_products, Params(page=page_number, size=size))
+
+
+@router.get("/products/{product_id}/images")
+def get_product_images(product_id: int):
+    product = Product()
+    images = product.get_images(product_id)
+
+    return [FileResponse(image.file_path, filename=image.file_name) for image in images]
