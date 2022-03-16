@@ -35,7 +35,7 @@ def create_product(new_product: schemas.ProductCreate, db: Session = Depends(get
         db_product = db_manager.create_product(db, new_product)
         return db_product
     except:
-        return HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY)
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
 @router.post("/products/upload")
@@ -55,7 +55,7 @@ async def upload_image(
 def get_product(product_id: int, db: Session = Depends(get_db)):
     db_response = db_manager.get_product(db, product_id)
     if not db_response:
-        return HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
     return db_response
 
 
@@ -84,7 +84,7 @@ def get_product_images(product_id: int):
 def get_product_inventory(product_id: int, db: Session = Depends(get_db)):
     db_response = db_manager.get_product(db, product_id)
     if not db_response:
-        return HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
     return db_response
 
 
@@ -96,6 +96,6 @@ def update_product_inventory(
 ):
     db_product = db_manager.get_product(db, product_id)
     if not db_product:
-        return HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
 
     return db_manager.update_product_inventory(db, db_product, inventory.inventory)
