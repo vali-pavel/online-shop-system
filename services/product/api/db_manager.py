@@ -44,3 +44,12 @@ def filter_products(db: Session, filters: schemas.ProductFilters):
             models.Product.user_id == filters.user_id
         )
     return query_filters
+
+
+def update_product_inventory(
+    db: Session, existing_inventory: schemas.ProductInventory, new_inventory: int
+):
+    existing_inventory.inventory = new_inventory
+    db.commit()
+    db.refresh(existing_inventory)
+    return existing_inventory
