@@ -16,7 +16,7 @@ from typing import List, Optional
 from db.db import SessionLocal
 from . import schemas, db_manager
 from product import Product
-
+import constants
 
 router = APIRouter()
 
@@ -29,7 +29,7 @@ def get_db():
         db.close()
 
 
-@router.post("/products", response_model=schemas.ProductCreate)
+@router.post("/products", response_model=schemas.CreatedProduct)
 def create_product(new_product: schemas.ProductCreate, db: Session = Depends(get_db)):
     try:
         db_product = db_manager.create_product(db, new_product)
@@ -61,14 +61,18 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 @router.get("/products", response_model=Page[schemas.ProductBase])
 def get_products(
-    page_number: Optional[int],
-    size: Optional[int],
-    filters: schemas.ProductFilters,
+    page_number: Optional[int] = 0,
+    size: Optional[int] = 0,
+    user_id: Optional[int] = None,
+    category: Optional[int] = None,
     db: Session = Depends(get_db),
 ):
+    filters = schemas.ProductFilters(user_id=user_id, category=category)
     query_filters = db_manager.filter_products(db, filters)
     db_products = db_manager.get_products(query_filters)
 
+    if filters.user_id:
+        return paginate(db_products)
     return paginate(db_products, Params(page=page_number, size=size))
 
 

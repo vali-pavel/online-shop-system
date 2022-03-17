@@ -11,6 +11,7 @@ class ProductInventory(BaseModel):
 
 class ProductBase(ProductInventory):
     sku: str = Field(...)
+    name: str = Field(...)
     price: float = Field(...)
     color: str = Field(...)
     min_delivery_days: int = Field(...)
@@ -21,6 +22,13 @@ class ProductBase(ProductInventory):
 
 class ProductCreate(ProductBase):
     user_id: int = Field(...)
+
+
+class CreatedProduct(BaseModel):
+    id: int = Field(...)
+
+    class Config:
+        orm_mode = True
 
 
 class ProductFilters(BaseModel):

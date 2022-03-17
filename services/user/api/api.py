@@ -24,7 +24,7 @@ def create_user(new_user: schemas.UserCreate, db: Session = Depends(get_db)):
         raise HTTPException(status_code=400, detail="Email already registered")
 
     auth_token = user.get_auth_token(created_user.id, created_user.role_type)
-    return Response(headers={"authorization": auth_token}, status_code=201)
+    return Response(auth_token, status_code=201)
 
 
 @router.get("/users/{user_id}", response_model=schemas.User)
@@ -42,4 +42,4 @@ def user_login(user_in: schemas.UserLogin, db: Session = Depends(get_db)):
     if not db_user:
         raise HTTPException(status_code=401, detail="Wrong email or password")
     auth_token = user.get_auth_token(db_user.id, db_user.role_type)
-    return Response(headers={"authorization": auth_token}, status_code=200)
+    return Response(auth_token, status_code=200)
