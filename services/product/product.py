@@ -33,7 +33,11 @@ class Product:
             img.save(filename=img_path)
 
     def get_images(self, product_id: int) -> List[IFile]:
-        file_names = os.listdir(self._get_folder_path(product_id))
+        try:
+            file_names = os.listdir(self._get_folder_path(product_id))
+        except:
+            return []
+
         files: List[IFile] = []
         for file_name in file_names:
             file_path = os.path.join(self._get_folder_path(product_id), file_name)
