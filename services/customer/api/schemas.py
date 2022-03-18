@@ -4,6 +4,7 @@ from typing import Optional
 
 
 class CustomerBase(BaseModel):
+    id: Optional[int]
     shipping_address: Optional[str]
     billing_address: Optional[str]
     card_number: Optional[int]
