@@ -9,7 +9,7 @@ from . import schemas
 from order import Order
 
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 
 @router.post("/orders")

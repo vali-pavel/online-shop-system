@@ -18,7 +18,7 @@ from . import schemas, db_manager
 from product import Product
 import constants
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 
 def get_db():

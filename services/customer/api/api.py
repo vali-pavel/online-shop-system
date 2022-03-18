@@ -5,7 +5,7 @@ from db.db import SessionLocal
 from . import schemas, db_manager
 from customer import Customer
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 
 def get_db():
