@@ -61,8 +61,7 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 @router.get("/products", response_model=Page[schemas.ProductBase])
 def get_products(
-    page_number: Optional[int] = 0,
-    size: Optional[int] = 0,
+    page_number: Optional[str] = 0,
     user_id: Optional[int] = None,
     category: Optional[int] = None,
     db: Session = Depends(get_db),
@@ -71,9 +70,7 @@ def get_products(
     query_filters = db_manager.filter_products(db, filters)
     db_products = db_manager.get_products(query_filters)
 
-    if filters.user_id:
-        return paginate(db_products)
-    return paginate(db_products, Params(page=page_number, size=size))
+    return paginate(db_products, Params(page=page_number, size=constants.PAGE_SIZE))
 
 
 @router.get("/products/{product_id}/images")
