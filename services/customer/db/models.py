@@ -10,6 +10,6 @@ class Customer(Base):
     user_id = Column(Integer, nullable=False)
     shipping_address = Column(String(250))
     billing_address = Column(String(250))
-    card_number = Column(Integer)
-    card_expiration = Column(Date)
+    card_number = Column(String(50))
+    card_expiration = Column(String(50))
     card_holder = Column(String(100))

@@ -8,7 +8,7 @@ class CustomerBase(BaseModel):
     shipping_address: Optional[str]
     billing_address: Optional[str]
     card_number: Optional[int]
-    card_expiration: Optional[date]
+    card_expiration: Optional[str]
     card_holder: Optional[str]
 
     class Config:
