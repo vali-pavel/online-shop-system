@@ -4,8 +4,8 @@ from . import schemas
 from db import models
 
 
-def get_customer(db: Session, customer_id: int):
-    return db.query(models.Customer).filter(models.Customer.id == customer_id).first()
+def get_customer(db: Session, user_id: int):
+    return db.query(models.Customer).filter(models.Customer.user_id == user_id).first()
 
 
 def create_customer(db: Session, customer: schemas.CustomerCreate):

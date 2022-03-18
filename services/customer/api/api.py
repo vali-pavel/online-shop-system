@@ -23,9 +23,9 @@ def create_customer(
     return db_manager.create_customer(db, customer=new_customer)
 
 
-@router.get("/customers/{customer_id}", response_model=schemas.CustomerBase)
-def read_customer(customer_id: int, db: Session = Depends(get_db)):
-    db_customer = db_manager.get_customer(db, customer_id)
+@router.get("/customers/{user_id}", response_model=schemas.CustomerBase)
+def read_customer(user_id: int, db: Session = Depends(get_db)):
+    db_customer = db_manager.get_customer(db, user_id)
 
     if not db_customer:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
@@ -33,9 +33,9 @@ def read_customer(customer_id: int, db: Session = Depends(get_db)):
     return db_customer
 
 
-@router.get("/customers/{customer_id}/validate")
-def validate_customer(customer_id, db: Session = Depends(get_db)):
-    db_customer = db_manager.get_customer(db, customer_id)
+@router.get("/customers/{user_id}/validate")
+def validate_customer(user_id: int, db: Session = Depends(get_db)):
+    db_customer = db_manager.get_customer(db, user_id)
 
     if not db_customer:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
@@ -51,11 +51,11 @@ def validate_customer(customer_id, db: Session = Depends(get_db)):
     return Response(None, 200)
 
 
-@router.put("/customers/{customer_id}", response_model=schemas.CustomerBase)
+@router.put("/customers/{user_id}", response_model=schemas.CustomerBase)
 def update_customer(
-    updated_customer: schemas.CustomerBase, customer_id, db: Session = Depends(get_db)
+    updated_customer: schemas.CustomerBase, user_id: int, db: Session = Depends(get_db)
 ):
-    db_customer = db_manager.get_customer(db, customer_id)
+    db_customer = db_manager.get_customer(db, user_id)
 
     if not db_customer:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Customer not found")
