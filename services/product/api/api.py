@@ -12,6 +12,7 @@ from fastapi import (
 from fastapi.responses import FileResponse
 from fastapi_pagination import Page, paginate, Params
 from typing import List, Optional
+import base64
 
 from db.db import SessionLocal
 from . import schemas, db_manager
@@ -78,7 +79,12 @@ def get_product_images(product_id: int):
     product = Product()
     images = product.get_images(product_id)
 
-    return [FileResponse(image.file_path, filename=image.file_name) for image in images]
+    base64images = []
+    for image in images:
+        with open(image.file_path, "rb") as f:
+            base64images.append(base64.b64encode(f.read()))
+
+    return base64images
 
 
 @router.get("/products/{product_id}/inventory", response_model=schemas.ProductInventory)
