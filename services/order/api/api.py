@@ -9,7 +9,7 @@ from . import schemas
 from order import Order
 
 
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 
 @router.post("/orders")
@@ -33,7 +33,7 @@ def submit_order(request: Request, order_request: schemas.Order):
             "Not enough quantity available for this product",
         )
 
-    is_valid_customer = order.validate_customer(order_request.customer_id)
+    is_valid_customer = order.validate_customer(order_request.user_id)
     if not is_valid_customer:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST,

@@ -10,13 +10,13 @@ def get_product(db: Session, product_id: int) -> schemas.ProductBase:
 
 def create_product(
     db: Session, new_product: schemas.ProductCreate
-) -> schemas.ProductCreate:
+) -> schemas.CreatedProduct:
     db_product = models.Product(
+        name=new_product.name,
         user_id=new_product.user_id,
         sku=new_product.sku,
         price=new_product.price,
         color=new_product.color,
-        images=new_product.images,
         inventory=new_product.inventory,
         min_delivery_days=new_product.min_delivery_days,
         max_delivery_days=new_product.max_delivery_days,
@@ -43,6 +43,8 @@ def filter_products(db: Session, filters: schemas.ProductFilters):
         query_filters = db.query(models.Product).filter(
             models.Product.user_id == filters.user_id
         )
+    if query_filters == None:
+        query_filters = db.query(models.Product)
     return query_filters
 
 

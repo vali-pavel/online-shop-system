@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, JSON, Float
+from sqlalchemy import Column, Integer, String, Float
 
 from .db import Base
 
@@ -7,6 +7,7 @@ class Product(Base):
     __tablename__ = "product"
 
     id = Column(Integer, autoincrement=True, primary_key=True)
+    name = Column(String(50), nullable=False)
     user_id = Column(Integer, nullable=False)
     sku = Column(String(50), nullable=False)
     price = Column(Float, nullable=False)

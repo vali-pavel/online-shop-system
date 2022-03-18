@@ -39,7 +39,7 @@ class Order:
         requests.put(
             f"{constants.PRODUCTS_API_URL}/{self.product_id}/inventory",
             headers=self._get_auth_header(),
-            data={"inventory": new_inventory},
+            json={"inventory": new_inventory},
         )
 
     def _get_auth_header(self):

@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS customer (
     user_id INT NOT NULL,
     shipping_address VARCHAR(250),
     billing_address VARCHAR(250),
-    card_number INT,
-    card_expiration DATE,
+    card_number VARCHAR(50),
+    card_expiration VARCHAR(50),
     card_holder VARCHAR(100)
 );

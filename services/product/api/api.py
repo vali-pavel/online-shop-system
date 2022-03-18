@@ -12,13 +12,14 @@ from fastapi import (
 from fastapi.responses import FileResponse
 from fastapi_pagination import Page, paginate, Params
 from typing import List, Optional
+import base64
 
 from db.db import SessionLocal
 from . import schemas, db_manager
 from product import Product
+import constants
 
-
-router = APIRouter()
+router = APIRouter(prefix="/api")
 
 
 def get_db():
@@ -29,7 +30,7 @@ def get_db():
         db.close()
 
 
-@router.post("/products", response_model=schemas.ProductCreate)
+@router.post("/products", response_model=schemas.CreatedProduct)
 def create_product(new_product: schemas.ProductCreate, db: Session = Depends(get_db)):
     try:
         db_product = db_manager.create_product(db, new_product)
@@ -61,15 +62,16 @@ def get_product(product_id: int, db: Session = Depends(get_db)):
 
 @router.get("/products", response_model=Page[schemas.ProductBase])
 def get_products(
-    page_number: Optional[int],
-    size: Optional[int],
-    filters: schemas.ProductFilters,
+    page_number: Optional[str] = 0,
+    user_id: Optional[int] = None,
+    category: Optional[int] = None,
     db: Session = Depends(get_db),
 ):
+    filters = schemas.ProductFilters(user_id=user_id, category=category)
     query_filters = db_manager.filter_products(db, filters)
     db_products = db_manager.get_products(query_filters)
 
-    return paginate(db_products, Params(page=page_number, size=size))
+    return paginate(db_products, Params(page=page_number, size=constants.PAGE_SIZE))
 
 
 @router.get("/products/{product_id}/images")
@@ -77,7 +79,12 @@ def get_product_images(product_id: int):
     product = Product()
     images = product.get_images(product_id)
 
-    return [FileResponse(image.file_path, filename=image.file_name) for image in images]
+    base64images = []
+    for image in images:
+        with open(image.file_path, "rb") as f:
+            base64images.append(base64.b64encode(f.read()))
+
+    return base64images
 
 
 @router.get("/products/{product_id}/inventory", response_model=schemas.ProductInventory)
