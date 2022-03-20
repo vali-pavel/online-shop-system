@@ -1,4 +1,3 @@
-from urllib.request import Request
 from fastapi import APIRouter, Response, Request
 
 from auth import Auth
