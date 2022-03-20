@@ -4,3 +4,6 @@ python-dotenv
 pydantic[email]
 requests
 passlib
+pytest_bdd
+selenium
+webdriver_manager

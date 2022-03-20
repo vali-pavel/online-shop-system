@@ -10,7 +10,7 @@ class ProductInventory(BaseModel):
 
 
 class ProductBase(ProductInventory):
-    id: Optional[int] = Field(...)
+    id: Optional[int] = Field(None)
     sku: str = Field(...)
     name: str = Field(...)
     price: float = Field(...)
