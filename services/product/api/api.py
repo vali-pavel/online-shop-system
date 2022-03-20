@@ -7,9 +7,7 @@ from fastapi import (
     UploadFile,
     File,
     Form,
-    Response,
 )
-from fastapi.responses import FileResponse
 from fastapi_pagination import Page, paginate, Params
 from typing import List, Optional
 import base64
