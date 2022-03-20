@@ -1,5 +1,4 @@
 from pytest import fixture
-import jwt
 
 from ..auth import Auth
 
