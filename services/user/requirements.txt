@@ -1,6 +1,0 @@
-mysql-connector-python
-sqlalchemy
-python-dotenv
-pydantic[email]
-requests
-passlib
