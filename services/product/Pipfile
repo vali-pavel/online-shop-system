@@ -11,6 +11,7 @@ python-dotenv = "*"
 fastapi-pagination = "*"
 requests = "*"
 uvicorn = "*"
+pymysql = "*"
 
 [dev-packages]
 
