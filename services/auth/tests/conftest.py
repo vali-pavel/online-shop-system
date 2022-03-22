@@ -1,6 +1,6 @@
 from pytest import fixture
 
-from ..auth import Auth
+from auth import Auth
 
 
 @fixture
