@@ -1,0 +1,25 @@
+version: '3'
+services:
+  tests:
+    build:
+      context: .
+    command: pytest
+    environment:
+      - SECRET_KEY=Strong_Secret_Key1!
+      - ALGORITHM=HS256
+
+  auth_api:
+    build:
+      context: .
+    command: uvicorn main:app --host 0.0.0.0
+    ports: 
+      - "8000:8000"
+
+    environment:
+      - SECRET_KEY=Strong_Secret_Key1!
+      - ALGORITHM=HS256
+
+networks:
+  default:
+    name: shopnet
+    external: false
