@@ -73,7 +73,7 @@ This will run all docker containers from the services.
 ### Unit tests
 The unit tests for the auth service can be executed from the `/services/auth` directory as follows:
 ```
-docker compose up tests
+docker compose run --rm tests
 ```
 
 This will test scenarios for generating and validating the authentication token.
@@ -81,7 +81,7 @@ This will test scenarios for generating and validating the authentication token.
 ### Automated tests
 The automated tests for the user service can be executed from the `/services/user` directory as follows:
 ```
-docker compose up tests
+docker compose run --rm tests
 ```
 
 This will test scenarios for user creation and user login.
