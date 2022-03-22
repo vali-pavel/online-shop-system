@@ -14,6 +14,10 @@ def init_driver():
     global browser
     options = webdriver.ChromeOptions()
     options.add_argument("--disable-web-security")
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-setuid-sandbox")
     service = Service(ChromeDriverManager().install())
     browser = webdriver.Chrome(service=service, options=options)
     browser.delete_all_cookies()
@@ -24,8 +28,9 @@ def init_driver():
 
 
 @scenario(
-    "../features/user.feature",
+    "user.feature",
     "The system can create a user",
+    features_base_dir="./features",
 )
 def test_user_creation():
     pass

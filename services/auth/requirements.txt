@@ -1,0 +1,7 @@
+pydantic
+pytest-bdd
+python-dotenv
+fastapi
+pytest
+uvicorn
+pyjwt

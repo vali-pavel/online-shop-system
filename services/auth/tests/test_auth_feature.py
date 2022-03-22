@@ -2,16 +2,18 @@ from pytest_bdd import given, when, then, scenario, parsers
 
 
 @scenario(
-    "../features/auth.feature",
+    "auth.feature",
     "The system can generate a valid authentication token",
+    features_base_dir="./features",
 )
 def test_token_creation():
     pass
 
 
 @scenario(
-    "../features/auth.feature",
+    "auth.feature",
     "The system can validate an authentication token",
+    features_base_dir="./features",
 )
 def test_token_validation():
     pass

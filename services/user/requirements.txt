@@ -1,0 +1,15 @@
+sqlalchemy
+python-dotenv
+pydantic
+fastapi
+requests
+uvicorn
+email-validator
+pytest
+webdriver-manager
+selenium
+passlib
+pytest-bdd
+pydantic[email]
+pymysql
+bcrypt
