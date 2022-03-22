@@ -1,0 +1,12 @@
+pydantic
+sqlalchemy
+fastapi
+python-dotenv
+fastapi-pagination
+requests
+uvicorn
+pymysql
+cryptography
+Wand
+python-magic
+python-multipart
