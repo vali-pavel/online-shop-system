@@ -28,6 +28,14 @@ def _get_engine_connection():
         raise Exception("Database connection failed")
 
 
+def create_tables():
+    models.Base.metadata.create_all(bind=conn)
+
+
+def drop_tables():
+    models.Base.metadata.drop_all(bind=conn)
+
+
 conn = _get_engine_connection()
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=conn)
-models.Base.metadata.create_all(bind=conn)
+create_tables()
