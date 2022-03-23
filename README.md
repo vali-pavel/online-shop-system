@@ -61,11 +61,16 @@ docker compose v2.3.3 - https://docs.docker.com/compose/install/
 
 ### Installing
 
-In order to execute the develompent env on your local machine run the following command in a terminal
+In order to execute the develompent env on your local machine run the following command in a terminal:
 ```
 ./entryfile.sh
 ```
 This will run all docker containers from the services.
+
+Existing tables can be removed by running the following command in a terminal:
+```
+./reset_db.sh
+```
 
 
 ## 🔧 Running the tests <a name = "tests"></a>
