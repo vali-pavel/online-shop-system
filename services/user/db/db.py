@@ -23,7 +23,7 @@ def _get_engine_connection():
             return conn
         except:
             counter = counter - 1
-            time.sleep(5)
+            time.sleep(7)
     if not connection_ok:
         raise Exception("Database connection failed")
 
