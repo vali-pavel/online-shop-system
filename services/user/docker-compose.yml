@@ -41,7 +41,7 @@ services:
       - MYSQL_DATABASE=users
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - "3306:3306"
+      - "3309:3306"
     volumes:
       - mysql:/var/lib/mysql
       - mysql_config:/etc/mysql
