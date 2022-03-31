@@ -12,6 +12,11 @@ services:
       - default
       - shopnet
 
+  tests:
+    build:
+      context: .
+    command: pytest
+
 networks:
   shopnet:
     external: true
