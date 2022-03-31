@@ -5,6 +5,7 @@ from api import api
 from api.middlewares import AuthMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from helpers import create_folder
 
 app = FastAPI()
 app.add_middleware(AuthMiddleware)
@@ -21,6 +22,8 @@ app.add_middleware(
 
 
 app.include_router(api.router)
+
+create_folder("assets")
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 
