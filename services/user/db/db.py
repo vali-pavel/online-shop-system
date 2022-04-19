@@ -8,7 +8,7 @@ from . import models
 
 load_dotenv()
 
-DATABASE_URI = f'mysql+pymysql://{os.environ["MYSQL_USER"]}:{os.environ["MYSQL_ROOT_PASSWORD"]}@users_db:3306/users'
+DATABASE_URI = f'mysql+pymysql://{os.environ["MYSQL_USER"]}:{os.environ["MYSQL_ROOT_PASSWORD"]}@users-db:3306/users'
 engine = create_engine(DATABASE_URI)
 
 

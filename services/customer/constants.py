@@ -1,1 +1,1 @@
-AUTH_API_URL = "http://auth_api:8000/auth"
+AUTH_API_URL = "http://auth-service:8000/auth"

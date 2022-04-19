@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-db
+  labels:
+    name: user-db-service
+    app: shop-service
+spec:
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    name: user-db-pod
+    app: shop-service

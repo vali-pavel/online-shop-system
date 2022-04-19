@@ -7,7 +7,7 @@ from . import models
 
 load_dotenv()
 
-DATABASE_URI = f'mysql+pymysql://{os.environ["MYSQL_USER"]}:{os.environ["MYSQL_ROOT_PASSWORD"]}@customers_db:3306/customers'
+DATABASE_URI = f'mysql+pymysql://{os.environ["MYSQL_USER"]}:{os.environ["MYSQL_ROOT_PASSWORD"]}@db:3306/customers'
 engine = create_engine(DATABASE_URI)
 
 
@@ -24,7 +24,7 @@ def _get_engine_connection():
             counter = counter - 1
             time.sleep(7)
     if not connection_ok:
-        raise Exception("Database connection failed")
+        raise Exception("Database connection failed ", DATABASE_URI)
 
 
 def create_tables():
